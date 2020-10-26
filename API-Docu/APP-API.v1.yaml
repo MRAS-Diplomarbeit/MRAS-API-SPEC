@@ -8,7 +8,7 @@ paths:
   /v1/register:
     parameters: []
     post:
-      summary: ''
+      summary: Register User
       operationId: post-v1-register
       responses:
         '200':
@@ -63,7 +63,7 @@ paths:
       security: []
   /v1/login:
     post:
-      summary: ''
+      summary: Login User
       operationId: post-v1-login
       responses:
         '200':
@@ -102,7 +102,7 @@ paths:
       security: []
   /v1/conf/privileges:
     post:
-      summary: ''
+      summary: Edit Privileges for User
       operationId: post-v1-conf-privileges
       responses:
         '200':
@@ -136,9 +136,9 @@ paths:
               required:
                 - userid
                 - access
-  /v1/get/allUsers:
+  /v1/get/allusers:
     get:
-      summary: Your GET endpoint
+      summary: Get List of all Users
       tags: []
       responses:
         '200':
@@ -159,6 +159,7 @@ paths:
                           type: string
               examples: {}
       operationId: get-v1-get-allUsers
+    parameters: []
 components:
   schemas: {}
   securitySchemes:
