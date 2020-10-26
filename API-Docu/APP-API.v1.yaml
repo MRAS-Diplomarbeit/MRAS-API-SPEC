@@ -5,7 +5,138 @@ info:
 servers:
   - url: 'http://localhost:3000'
 paths:
-  /test:
+  /v1/register:
+    parameters: []
+    post:
+      summary: ''
+      operationId: post-v1-register
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                required:
+                  - token
+          headers: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                required:
+                  - error_message
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    description: duplicate username
+                required:
+                  - error_message
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  description: sha-256 hashed password
+              required:
+                - username
+                - password
+      security: []
+  /v1/login:
+    post:
+      summary: ''
+      operationId: post-v1-login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    description: wrong password/username
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  description: sha-256 hashed password
+              required:
+                - username
+                - password
+      security: []
+  /v1/conf/privileges:
+    post:
+      summary: ''
+      operationId: post-v1-conf-privileges
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userid:
+                  type: integer
+                access:
+                  type: object
+                  required:
+                    - admin
+                  properties:
+                    admin:
+                      type: boolean
+                      description: if admin is true the other properties aren't needed
+                    canadd:
+                      type: boolean
+                    speakers:
+                      type: array
+                      items:
+                        type: integer
+                    rooms:
+                      type: array
+                      items:
+                        type: integer
+              required:
+                - userid
+                - access
+  /v1/get/allUsers:
     get:
       summary: Your GET endpoint
       tags: []
@@ -17,16 +148,24 @@ paths:
               schema:
                 type: object
                 properties:
-                  test1:
-                    type: string
-      operationId: get-test
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                test:
-                  type: string
+                  users:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        userid:
+                          type: integer
+                        username:
+                          type: string
+              examples: {}
+      operationId: get-v1-get-allUsers
 components:
   schemas: {}
+  securitySchemes:
+    Authorization:
+      name: Bearer TOKEN
+      type: apiKey
+      in: header
+      description: instead of TOKEN the returned usertoken is used
+security:
+  - Authorization: []
