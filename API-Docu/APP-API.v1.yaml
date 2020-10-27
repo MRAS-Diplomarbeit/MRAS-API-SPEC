@@ -136,7 +136,7 @@ paths:
               required:
                 - userid
                 - access
-  /v1/get/allusers:
+  /v1/user/getall:
     get:
       summary: Get List of all Users
       tags: []
@@ -177,6 +177,43 @@ paths:
             examples:
               example-1:
                 value: {}
+  /v1/room/getall:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  rooms:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Room'
+      operationId: get-v1-room-getall
+  '/v1/room/get/{id}':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+      operationId: get-v1-room-get
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
 components:
   schemas:
     Room:
