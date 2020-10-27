@@ -160,8 +160,65 @@ paths:
               examples: {}
       operationId: get-v1-get-allUsers
     parameters: []
+  /v1/room/create:
+    parameters: []
+    post:
+      summary: ''
+      operationId: post-v1-room-create
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              example-1:
+                value: {}
 components:
-  schemas: {}
+  schemas:
+    Room:
+      title: Room
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        speakers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Speaker'
+        dimensions:
+          type: object
+          description: not used yet
+          properties:
+            height:
+              type: number
+            width:
+              type: number
+    Speaker:
+      title: Speaker
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        position:
+          type: object
+          description: not used yet
+          properties:
+            x:
+              type: number
+            'y':
+              type: number
   securitySchemes:
     Bearer:
       type: http
