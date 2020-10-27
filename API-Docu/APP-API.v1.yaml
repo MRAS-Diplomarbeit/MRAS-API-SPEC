@@ -3,9 +3,9 @@ info:
   title: APP-API
   version: '1.0'
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'http://localhost:3000/api/v1'
 paths:
-  /v1/register:
+  /register:
     parameters: []
     post:
       summary: Register User
@@ -61,7 +61,7 @@ paths:
                 - username
                 - password
       security: []
-  /v1/login:
+  /login:
     post:
       summary: Login User
       operationId: post-v1-login
@@ -100,7 +100,8 @@ paths:
                 - username
                 - password
       security: []
-  /v1/conf/privileges:
+    parameters: []
+  /user/conf/privileges:
     post:
       summary: Edit Privileges for User
       operationId: post-v1-conf-privileges
@@ -136,7 +137,8 @@ paths:
               required:
                 - userid
                 - access
-  /v1/user/getall:
+    parameters: []
+  /user/getall:
     get:
       summary: Get List of all Users
       tags: []
@@ -160,26 +162,41 @@ paths:
               examples: {}
       operationId: get-v1-get-allUsers
     parameters: []
-  /v1/room/create:
+  /room/create:
     parameters: []
     post:
-      summary: ''
+      summary: Create a new Room
       operationId: post-v1-room-create
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              properties: {}
+              properties:
+                name:
+                  type: string
+                desciption:
+                  type: string
+                dimensions:
+                  type: object
+                  properties:
+                    hieght:
+                      type: number
+                    width:
+                      type: number
             examples:
               example-1:
                 value: {}
-  /v1/room/getall:
+  /room/getall:
     get:
-      summary: Your GET endpoint
+      summary: Get all Rooms
       tags: []
       responses:
         '200':
@@ -196,9 +213,10 @@ paths:
                     items:
                       $ref: '#/components/schemas/Room'
       operationId: get-v1-room-getall
-  '/v1/room/get/{id}':
+    parameters: []
+  '/room/get/{id}':
     get:
-      summary: Your GET endpoint
+      summary: Get Specific Room by ID
       tags: []
       responses:
         '200':
@@ -214,6 +232,18 @@ paths:
         name: id
         in: path
         required: true
+  '/user/get/{id}':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-user
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
 components:
   schemas:
     Room:
@@ -226,10 +256,6 @@ components:
           type: string
         description:
           type: string
-        speakers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Speaker'
         dimensions:
           type: object
           description: not used yet
@@ -256,6 +282,16 @@ components:
               type: number
             'y':
               type: number
+        roomid:
+          type: integer
+    User:
+      title: User
+      type: object
+      properties:
+        id:
+          type: integer
+        '':
+          type: string
   securitySchemes:
     Bearer:
       type: http
