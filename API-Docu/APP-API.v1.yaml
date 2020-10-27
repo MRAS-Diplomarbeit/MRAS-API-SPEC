@@ -163,10 +163,9 @@ paths:
 components:
   schemas: {}
   securitySchemes:
-    Authorization:
-      name: Bearer TOKEN
-      type: apiKey
-      in: header
-      description: instead of TOKEN the returned usertoken is used
+    Bearer:
+      type: http
+      scheme: bearer
+      description: ''
 security:
   - Authorization: []
