@@ -4,6 +4,7 @@ info:
   version: '1.0'
   contact:
     email: bylukee1@gmail.com
+    name: Lukas König
   description: API for communication between the MRAS WebApp/App and the Server
 servers:
   - url: 'http://localhost:3000/api/v1'
@@ -12,7 +13,7 @@ paths:
     parameters: []
     post:
       summary: Register User
-      operationId: post-v1-register
+      operationId: register
       responses:
         '200':
           description: OK
@@ -68,7 +69,7 @@ paths:
   /login:
     post:
       summary: Login User
-      operationId: post-v1-login
+      operationId: login
       responses:
         '200':
           description: OK
@@ -104,11 +105,11 @@ paths:
                 - password
       security: []
     parameters: []
-  /user/conf/privileges:
+  /user/privileges:
     parameters: []
     put:
-      summary: ''
-      operationId: put-user-conf-privileges
+      summary: Update User Privileges
+      operationId: updateUserPrivilages
       responses:
         '200':
           description: OK
@@ -120,27 +121,12 @@ paths:
               properties:
                 userid:
                   type: integer
-                access:
-                  type: object
-                  required:
-                    - admin
-                  properties:
-                    admin:
-                      type: boolean
-                      description: if admin is true the other properties aren't needed
-                    canadd:
-                      type: boolean
-                    speakers:
-                      type: array
-                      items:
-                        type: integer
-                    rooms:
-                      type: array
-                      items:
-                        type: integer
+                privileges:
+                  $ref: '#/components/schemas/UserPrivileges'
               required:
                 - userid
-                - access
+                - privileges
+      description: Updates user privileges
   /user/getall:
     get:
       summary: Get List of all Users
@@ -163,13 +149,13 @@ paths:
                         username:
                           type: string
               examples: {}
-      operationId: get-v1-get-allUsers
+      operationId: getAllUsers
     parameters: []
   /room/create:
     parameters: []
     post:
       summary: Create a new Room
-      operationId: post-v1-room-create
+      operationId: createRoom
       responses:
         '200':
           description: OK
@@ -260,7 +246,7 @@ paths:
                 properties:
                   error:
                     $ref: '#/components/schemas/Error'
-      operationId: get-v1-room-getall
+      operationId: getAllRooms
     parameters: []
   '/room/get/{id}':
     get:
@@ -300,7 +286,7 @@ paths:
                 properties:
                   error:
                     $ref: '#/components/schemas/Error'
-      operationId: get-v1-room-get
+      operationId: getRoom
     parameters:
       - schema:
           type: string
@@ -321,13 +307,68 @@ paths:
                 properties:
                   user:
                     $ref: '#/components/schemas/User'
-      operationId: get-user
+      operationId: getUser
     parameters:
       - schema:
           type: integer
         name: id
         in: path
         required: true
+  /speaker/create:
+    parameters: []
+    put:
+      summary: ''
+      operationId: put-speaker-create
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                '':
+                  $ref: '#/components/schemas/Speaker'
+    post:
+      summary: ''
+      operationId: post-speaker-create
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  speaker:
+                    $ref: '#/components/schemas/Speaker'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                speaker:
+                  $ref: '#/components/schemas/Speaker'
 components:
   schemas:
     Room:
@@ -384,6 +425,22 @@ components:
           type: string
         message:
           type: string
+    UserPrivileges:
+      title: UserPrivileges
+      type: object
+      properties:
+        admin:
+          type: boolean
+        canedit:
+          type: boolean
+        speakers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Speaker'
+        rooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Room'
   securitySchemes:
     Bearer:
       type: http
