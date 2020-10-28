@@ -105,9 +105,10 @@ paths:
       security: []
     parameters: []
   /user/conf/privileges:
-    post:
-      summary: Edit Privileges for User
-      operationId: post-v1-conf-privileges
+    parameters: []
+    put:
+      summary: ''
+      operationId: put-user-conf-privileges
       responses:
         '200':
           description: OK
@@ -140,15 +141,6 @@ paths:
               required:
                 - userid
                 - access
-    parameters:
-      - required: true
-      - required: true
-    get:
-      summary: ''
-      operationId: get-user-conf-privileges
-      responses:
-        '200':
-          description: OK
   /user/getall:
     get:
       summary: Get List of all Users
@@ -317,7 +309,7 @@ paths:
         required: true
   '/user/get/{id}':
     get:
-      summary: Your GET endpoint
+      summary: Get specific User by ID
       tags: []
       responses:
         '200':
