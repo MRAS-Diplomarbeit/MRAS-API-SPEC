@@ -316,20 +316,6 @@ paths:
         required: true
   /speaker/create:
     parameters: []
-    put:
-      summary: ''
-      operationId: put-speaker-create
-      responses:
-        '200':
-          description: OK
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                '':
-                  $ref: '#/components/schemas/Speaker'
     post:
       summary: ''
       operationId: post-speaker-create
