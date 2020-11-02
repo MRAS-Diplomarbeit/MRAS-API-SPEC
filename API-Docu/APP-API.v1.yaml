@@ -9,7 +9,7 @@ info:
 servers:
   - url: 'http://localhost:3000/api/v1'
 paths:
-  /register:
+  /user/register:
     parameters: []
     post:
       summary: Register User
@@ -51,6 +51,15 @@ paths:
                     $ref: '#/components/schemas/Error'
                 required:
                   - error
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
       requestBody:
         content:
           application/json:
@@ -66,7 +75,7 @@ paths:
                 - username
                 - password
       security: []
-  /login:
+  /user/login:
     post:
       summary: Login User
       operationId: login
@@ -82,6 +91,15 @@ paths:
                     type: string
         '401':
           description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
@@ -105,14 +123,37 @@ paths:
                 - password
       security: []
     parameters: []
-  /user/privileges:
-    parameters: []
+  '/user/{id}/permissions/':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
     put:
       summary: Update User Privileges
-      operationId: updateUserPrivilages
+      operationId: updateUserPermissions
       responses:
         '200':
           description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
       requestBody:
         content:
           application/json:
@@ -120,16 +161,16 @@ paths:
               type: object
               properties:
                 userid:
-                  type: integer
+                  type: string
                 privileges:
                   $ref: '#/components/schemas/UserPrivileges'
               required:
                 - userid
                 - privileges
-      description: Updates user privileges
-  /user/getall:
+      description: Updates user permissions
+  /user:
     get:
-      summary: Get List of all Users
+      summary: Get All Users
       tags: []
       responses:
         '200':
@@ -139,19 +180,34 @@ paths:
               schema:
                 type: object
                 properties:
+                  count:
+                    type: integer
                   users:
                     type: array
                     items:
-                      type: object
-                      properties:
-                        userid:
-                          type: integer
-                        username:
-                          type: string
+                      $ref: '#/components/schemas/User'
               examples: {}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
       operationId: getAllUsers
     parameters: []
-  /room/create:
+  /room:
     parameters: []
     post:
       summary: Create a new Room
@@ -210,7 +266,6 @@ paths:
             examples:
               example-1:
                 value: {}
-  /room/getall:
     get:
       summary: Get all Rooms
       tags: []
@@ -247,8 +302,7 @@ paths:
                   error:
                     $ref: '#/components/schemas/Error'
       operationId: getAllRooms
-    parameters: []
-  '/room/get/{id}':
+  '/room/{id}':
     get:
       summary: Get Specific Room by ID
       tags: []
@@ -258,7 +312,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Room'
+                type: object
+                properties:
+                  room:
+                    $ref: '#/components/schemas/Room'
         '401':
           description: Unauthorized
           content:
@@ -293,7 +350,7 @@ paths:
         name: id
         in: path
         required: true
-  '/user/get/{id}':
+  '/user/{id}':
     get:
       summary: Get specific User by ID
       tags: []
@@ -308,17 +365,45 @@ paths:
                   user:
                     $ref: '#/components/schemas/User'
       operationId: getUser
+      description: Get Users by ID
     parameters:
       - schema:
-          type: integer
+          type: string
         name: id
         in: path
         required: true
-  /speaker/create:
+    delete:
+      summary: Delete User
+      operationId: deleteUser
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      description: |-
+        Deletes User from Database.
+        The User sending the requests needs to be an administrator
+  /speaker:
     parameters: []
     post:
-      summary: ''
-      operationId: post-speaker-create
+      summary: Add new Speaker
+      operationId: addSpeaker
       responses:
         '200':
           description: OK
@@ -355,6 +440,100 @@ paths:
               properties:
                 speaker:
                   $ref: '#/components/schemas/Speaker'
+      description: 'Add a new Speaker '
+    get:
+      summary: Get All Speaker
+      operationId: getAllSpeaker
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  speakers:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Speaker'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      description: Get All Speakers
+  /user/logout:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      operationId: logoutUser
+      description: logs out user an makes Token invalid
+    parameters: []
+  '/speaker/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get Speaker by ID
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  speaker:
+                    $ref: '#/components/schemas/Speaker'
+      operationId: getSpeaker
+      description: Get Speaker by ID
+    delete:
+      summary: Remove Speaker
+      operationId: removeSpeaker
+      responses:
+        '200':
+          description: OK
+      description: ''
 components:
   schemas:
     Room:
@@ -362,7 +541,7 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
         name:
           type: string
         description:
@@ -380,7 +559,7 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
         name:
           type: string
         description:
@@ -394,13 +573,13 @@ components:
             'y':
               type: number
         roomid:
-          type: integer
+          type: string
     User:
       title: User
       type: object
       properties:
         id:
-          type: integer
+          type: string
         username:
           type: string
     Error:
@@ -412,7 +591,7 @@ components:
         message:
           type: string
     UserPrivileges:
-      title: UserPrivileges
+      title: UserPermissions
       type: object
       properties:
         admin:
@@ -421,12 +600,14 @@ components:
           type: boolean
         speakers:
           type: array
+          description: speaker id
           items:
-            $ref: '#/components/schemas/Speaker'
+            type: string
         rooms:
           type: array
+          description: room id
           items:
-            $ref: '#/components/schemas/Room'
+            type: string
   securitySchemes:
     Bearer:
       type: http
