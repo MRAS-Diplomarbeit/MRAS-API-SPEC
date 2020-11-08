@@ -74,7 +74,6 @@ paths:
               required:
                 - username
                 - password
-      security: []
       description: ''
   /user/login:
     post:
@@ -122,7 +121,6 @@ paths:
               required:
                 - username
                 - password
-      security: []
     parameters: []
   '/user/{id}/permissions/':
     parameters:
@@ -169,6 +167,9 @@ paths:
                 - userid
                 - privileges
       description: Updates user permissions
+      security:
+        - bearerAuth: []
+        - api_secret: []
   /user:
     get:
       summary: Get All Users
@@ -207,6 +208,9 @@ paths:
                   error:
                     $ref: '#/components/schemas/Error'
       operationId: getAllUsers
+      security:
+        - bearerAuth: []
+        - api_secret: []
     parameters: []
   /room:
     parameters: []
@@ -267,6 +271,9 @@ paths:
             examples:
               example-1:
                 value: {}
+      security:
+        - bearerAuth: []
+        - api_secret: []
     get:
       summary: Get all Rooms
       tags: []
@@ -305,6 +312,9 @@ paths:
                   error:
                     $ref: '#/components/schemas/Error'
       operationId: getAllRooms
+      security:
+        - bearerAuth: []
+        - api_secret: []
     patch:
       summary: Update Room
       operationId: patchRoom
@@ -353,6 +363,9 @@ paths:
               properties:
                 room:
                   $ref: '#/components/schemas/Room'
+      security:
+        - bearerAuth: []
+        - api_secret: []
   '/room/{id}':
     get:
       summary: Get Specific Room by ID
@@ -395,6 +408,9 @@ paths:
                   error:
                     $ref: '#/components/schemas/Error'
       operationId: getRoom
+      security:
+        - bearerAuth: []
+        - api_secret: []
     parameters:
       - schema:
           type: string
@@ -417,6 +433,9 @@ paths:
                     $ref: '#/components/schemas/User'
       operationId: getUser
       description: Get Users by ID
+      security:
+        - bearerAuth: []
+        - api_secret: []
     parameters:
       - schema:
           type: string
@@ -450,6 +469,9 @@ paths:
       description: |-
         Deletes User from Database.
         The User sending the requests needs to be an administrator
+      security:
+        - bearerAuth: []
+        - api_secret: []
   /speaker:
     parameters: []
     post:
@@ -492,6 +514,9 @@ paths:
                 speaker:
                   $ref: '#/components/schemas/Speaker'
       description: 'Add a new Speaker '
+      security:
+        - bearerAuth: []
+        - api_secret: []
     get:
       summary: Get All Speaker
       operationId: getAllSpeaker
@@ -528,6 +553,9 @@ paths:
                   error:
                     $ref: '#/components/schemas/Error'
       description: Get All Speakers
+      security:
+        - bearerAuth: []
+        - api_secret: []
     patch:
       summary: ''
       operationId: patchSpeaker
@@ -576,6 +604,9 @@ paths:
               properties:
                 speaker:
                   $ref: '#/components/schemas/Speaker'
+      security:
+        - bearerAuth: []
+        - api_secret: []
   /user/logout:
     get:
       summary: Your GET endpoint
@@ -603,6 +634,9 @@ paths:
                     $ref: '#/components/schemas/Error'
       operationId: logoutUser
       description: logs out user an makes Token invalid
+      security:
+        - bearerAuth: []
+        - api_secret: []
     parameters: []
   '/speaker/{id}':
     parameters:
@@ -626,6 +660,9 @@ paths:
                     $ref: '#/components/schemas/Speaker'
       operationId: getSpeaker
       description: Get Speaker by ID
+      security:
+        - bearerAuth: []
+        - api_secret: []
     delete:
       summary: Remove Speaker
       operationId: removeSpeaker
@@ -633,6 +670,9 @@ paths:
         '200':
           description: OK
       description: ''
+      security:
+        - bearerAuth: []
+        - api_secret: []
 components:
   schemas:
     Room:
@@ -708,9 +748,12 @@ components:
           items:
             type: string
   securitySchemes:
-    Bearer:
+    bearerAuth:
       type: http
       scheme: bearer
-      description: ''
+    api_secret:
+      name: api_secret
+      type: apiKey
+      in: header
 security:
-  - Bearer: []
+  - api_secret: []
