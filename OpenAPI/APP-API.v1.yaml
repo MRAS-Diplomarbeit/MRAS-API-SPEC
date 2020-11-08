@@ -13,7 +13,7 @@ paths:
     parameters: []
     post:
       summary: Register User
-      operationId: register
+      operationId: registerUser
       responses:
         '200':
           description: OK
@@ -75,10 +75,11 @@ paths:
                 - username
                 - password
       security: []
+      description: ''
   /user/login:
     post:
       summary: Login User
-      operationId: login
+      operationId: loginUser
       responses:
         '200':
           description: OK
@@ -292,6 +293,8 @@ paths:
                 properties:
                   error:
                     $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
         '500':
           description: Internal Server Error
           content:
@@ -302,6 +305,54 @@ paths:
                   error:
                     $ref: '#/components/schemas/Error'
       operationId: getAllRooms
+    patch:
+      summary: Update Room
+      operationId: patchRoom
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  room:
+                    $ref: '#/components/schemas/Room'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                room:
+                  $ref: '#/components/schemas/Room'
   '/room/{id}':
     get:
       summary: Get Specific Room by ID
@@ -477,6 +528,54 @@ paths:
                   error:
                     $ref: '#/components/schemas/Error'
       description: Get All Speakers
+    patch:
+      summary: ''
+      operationId: patchSpeaker
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  speaker:
+                    $ref: '#/components/schemas/Speaker'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                speaker:
+                  $ref: '#/components/schemas/Speaker'
   /user/logout:
     get:
       summary: Your GET endpoint
