@@ -747,6 +747,17 @@ components:
           description: room id
           items:
             type: string
+    SpeakerGroup:
+      title: SpeakerGroup
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        speakers:
+          $ref: '#/components/schemas/Speaker'
+      description: ''
   securitySchemes:
     bearerAuth:
       type: http
