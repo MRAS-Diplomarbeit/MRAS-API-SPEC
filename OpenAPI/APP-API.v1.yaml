@@ -129,7 +129,7 @@ paths:
         name: id
         in: path
         required: true
-    put:
+    patch:
       summary: Update User Permissions
       operationId: updateUserPermissions
       responses:
@@ -417,6 +417,60 @@ paths:
         name: id
         in: path
         required: true
+    post:
+      summary: Enable Audio Playback for Room by ID
+      operationId: enablePlaybackRoom
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      description: Enable Audioplayback for a Room by ID
+      security:
+        - bearerAuth: []
+        - api_secret: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                playback:
+                  $ref: '#/components/schemas/Playback'
   '/user/{id}':
     get:
       summary: Get specific User by ID
@@ -658,6 +712,33 @@ paths:
                 properties:
                   speaker:
                     $ref: '#/components/schemas/Speaker'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
       operationId: getSpeaker
       description: Get Speaker by ID
       security:
@@ -673,6 +754,60 @@ paths:
       security:
         - bearerAuth: []
         - api_secret: []
+    post:
+      summary: Enable Audio Playback for Speaker by ID
+      operationId: enablePlaybackSpeaker
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      description: Enable Audioplayback for Speaker by ID
+      security:
+        - bearerAuth: []
+        - api_secret: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                playback:
+                  $ref: '#/components/schemas/Playback'
   '/speaker/group/{id}':
     parameters:
       - schema:
@@ -771,6 +906,60 @@ paths:
       security:
         - bearerAuth: []
         - api_secret: []
+    post:
+      summary: ''
+      operationId: enablePlaybackSpeakerGroup
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                playback:
+                  $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
+        - api_secret: []
+      description: Enable Playback for Specific Speaker Group
   /speaker/group:
     get:
       summary: Get all Speaker Groups
@@ -1162,6 +1351,53 @@ paths:
       security:
         - bearerAuth: []
         - api_secret: []
+  /refresh:
+    get:
+      summary: Refresh devices
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  speakers:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Speaker'
+                  speakergroups:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SpeakerGroup'
+                  rooms:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Room'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      operationId: refreshDevices
+      description: Get update from Server with new Devices and updates
+      security:
+        - bearerAuth: []
+        - api_secret: []
 components:
   schemas:
     Room:
@@ -1265,6 +1501,14 @@ components:
           type: string
         perms:
           $ref: '#/components/schemas/Permissions'
+    Playback:
+      title: Playback
+      type: object
+      properties:
+        displayname:
+          type: string
+        method:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http
