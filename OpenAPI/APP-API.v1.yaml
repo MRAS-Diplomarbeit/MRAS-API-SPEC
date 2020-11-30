@@ -733,6 +733,7 @@ paths:
       description: Get speaker Group by ID
       security:
         - bearerAuth: []
+        - api_secret: []
     delete:
       summary: ''
       operationId: deleteSpeakerGroupByID
@@ -769,6 +770,7 @@ paths:
       description: Delete Speaker Group by ID
       security:
         - bearerAuth: []
+        - api_secret: []
   /speaker/group:
     get:
       summary: Your GET endpoint
@@ -808,6 +810,7 @@ paths:
       operationId: getAllSpeakerGroups
       security:
         - bearerAuth: []
+        - api_secret: []
       description: Get All Speaker Groups
     post:
       summary: ''
@@ -851,6 +854,7 @@ paths:
                     $ref: '#/components/schemas/Error'
       security:
         - bearerAuth: []
+        - api_secret: []
       requestBody:
         content:
           application/json:
@@ -912,6 +916,7 @@ paths:
       description: Update Specific Speaker Group
       security:
         - bearerAuth: []
+        - api_secret: []
       requestBody:
         content:
           application/json:
