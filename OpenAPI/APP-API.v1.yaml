@@ -130,7 +130,7 @@ paths:
         in: path
         required: true
     put:
-      summary: Update User Privileges
+      summary: Update User Permissions
       operationId: updateUserPermissions
       responses:
         '200':
@@ -162,7 +162,7 @@ paths:
                 userid:
                   type: string
                 privileges:
-                  $ref: '#/components/schemas/UserPrivileges'
+                  $ref: '#/components/schemas/Permissions'
               required:
                 - userid
                 - privileges
@@ -443,7 +443,7 @@ paths:
         in: path
         required: true
     delete:
-      summary: Delete User
+      summary: Delete User by ID
       operationId: deleteUser
       responses:
         '200':
@@ -557,7 +557,7 @@ paths:
         - bearerAuth: []
         - api_secret: []
     patch:
-      summary: ''
+      summary: Update Speaker
       operationId: patchSpeaker
       responses:
         '200':
@@ -609,7 +609,7 @@ paths:
         - api_secret: []
   /user/logout:
     get:
-      summary: Your GET endpoint
+      summary: Logout User
       tags: []
       responses:
         '200':
@@ -681,7 +681,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Get Speaker Group by ID
       tags: []
       responses:
         '200':
@@ -735,7 +735,7 @@ paths:
         - bearerAuth: []
         - api_secret: []
     delete:
-      summary: ''
+      summary: Delete Speaker Group by ID
       operationId: deleteSpeakerGroupByID
       responses:
         '200':
@@ -773,7 +773,7 @@ paths:
         - api_secret: []
   /speaker/group:
     get:
-      summary: Your GET endpoint
+      summary: Get all Speaker Groups
       tags: []
       responses:
         '200':
@@ -813,7 +813,7 @@ paths:
         - api_secret: []
       description: Get All Speaker Groups
     post:
-      summary: ''
+      summary: Create new Speaker Group
       operationId: createSpeakerGroup
       responses:
         '200':
@@ -865,7 +865,7 @@ paths:
                   $ref: '#/components/schemas/SpeakerGroup'
       description: Create new Speakergroup
     patch:
-      summary: ''
+      summary: Update Speaker Group
       operationId: updateSpeakerGroup
       responses:
         '200':
@@ -925,6 +925,243 @@ paths:
               properties:
                 group:
                   $ref: '#/components/schemas/SpeakerGroup'
+  /user/group:
+    get:
+      summary: Get all User Groups
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  groups:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserGroup'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      operationId: getAllUserGroups
+      security:
+        - bearerAuth: []
+        - api_secret: []
+      description: get all User Permission Groups
+    patch:
+      summary: Update User Group
+      operationId: updateUserGroup
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  group:
+                    $ref: '#/components/schemas/UserGroup'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      description: update existing UserGroup
+      security:
+        - bearerAuth: []
+        - api_secret: []
+    post:
+      summary: Create new User Group
+      operationId: createUserGroup
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  group:
+                    $ref: '#/components/schemas/UserGroup'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                group:
+                  $ref: '#/components/schemas/UserGroup'
+      description: create new User Group
+      security:
+        - bearerAuth: []
+        - api_secret: []
+  '/user/group/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get User Group by ID
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  group:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      operationId: getUserGroupByID
+      description: get specific User Group by ID
+      security:
+        - bearerAuth: []
+        - api_secret: []
+    delete:
+      summary: Delete User Group by ID
+      operationId: deleteUserGroupByID
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      description: delete specific User Group
+      security:
+        - bearerAuth: []
+        - api_secret: []
 components:
   schemas:
     Room:
@@ -973,6 +1210,10 @@ components:
           type: string
         username:
           type: string
+        usergroup_ids:
+          type: array
+          items:
+            type: string
     Error:
       title: Error
       type: object
@@ -981,8 +1222,8 @@ components:
           type: string
         message:
           type: string
-    UserPrivileges:
-      title: UserPermissions
+    Permissions:
+      title: Permissions
       type: object
       properties:
         admin:
@@ -1014,6 +1255,16 @@ components:
           type: string
         speaker_ids:
           type: string
+    UserGroup:
+      title: UserGroup
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        perms:
+          $ref: '#/components/schemas/Permissions'
   securitySchemes:
     bearerAuth:
       type: http
