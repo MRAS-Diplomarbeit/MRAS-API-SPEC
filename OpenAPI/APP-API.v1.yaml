@@ -122,7 +122,7 @@ paths:
                 - username
                 - password
     parameters: []
-  '/user/{id}/permissions/':
+  '/user/{id}/permissions':
     parameters:
       - schema:
           type: string
@@ -354,7 +354,7 @@ paths:
                 type: object
                 properties:
                   error:
-                    $ref: ''
+                    $ref: '#/components/schemas/Error'
       requestBody:
         content:
           application/json:
