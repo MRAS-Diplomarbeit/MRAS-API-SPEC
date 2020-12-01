@@ -169,7 +169,6 @@ paths:
       description: Updates user permissions
       security:
         - bearerAuth: []
-        - api_secret: []
   /user:
     get:
       summary: Get All Users
@@ -210,7 +209,6 @@ paths:
       operationId: getAllUsers
       security:
         - bearerAuth: []
-        - api_secret: []
     parameters: []
   /room:
     parameters: []
@@ -273,7 +271,6 @@ paths:
                 value: {}
       security:
         - bearerAuth: []
-        - api_secret: []
     get:
       summary: Get all Rooms
       tags: []
@@ -314,7 +311,6 @@ paths:
       operationId: getAllRooms
       security:
         - bearerAuth: []
-        - api_secret: []
     patch:
       summary: Update Room
       operationId: patchRoom
@@ -365,7 +361,6 @@ paths:
                   $ref: '#/components/schemas/Room'
       security:
         - bearerAuth: []
-        - api_secret: []
   '/room/{id}':
     get:
       summary: Get Specific Room by ID
@@ -410,7 +405,6 @@ paths:
       operationId: getRoom
       security:
         - bearerAuth: []
-        - api_secret: []
     parameters:
       - schema:
           type: string
@@ -462,7 +456,6 @@ paths:
       description: Enable Audioplayback for a Room by ID
       security:
         - bearerAuth: []
-        - api_secret: []
       requestBody:
         content:
           application/json:
@@ -489,7 +482,6 @@ paths:
       description: Get Users by ID
       security:
         - bearerAuth: []
-        - api_secret: []
     parameters:
       - schema:
           type: string
@@ -525,7 +517,6 @@ paths:
         The User sending the requests needs to be an administrator
       security:
         - bearerAuth: []
-        - api_secret: []
   /speaker:
     parameters: []
     post:
@@ -570,7 +561,6 @@ paths:
       description: 'Add a new Speaker '
       security:
         - bearerAuth: []
-        - api_secret: []
     get:
       summary: Get All Speaker
       operationId: getAllSpeaker
@@ -609,7 +599,6 @@ paths:
       description: Get All Speakers
       security:
         - bearerAuth: []
-        - api_secret: []
     patch:
       summary: Update Speaker
       operationId: patchSpeaker
@@ -660,7 +649,6 @@ paths:
                   $ref: '#/components/schemas/Speaker'
       security:
         - bearerAuth: []
-        - api_secret: []
   /user/logout:
     get:
       summary: Logout User
@@ -690,7 +678,6 @@ paths:
       description: logs out user an makes Token invalid
       security:
         - bearerAuth: []
-        - api_secret: []
     parameters: []
   '/speaker/{id}':
     parameters:
@@ -743,7 +730,6 @@ paths:
       description: Get Speaker by ID
       security:
         - bearerAuth: []
-        - api_secret: []
     delete:
       summary: Remove Speaker
       operationId: removeSpeaker
@@ -753,7 +739,6 @@ paths:
       description: ''
       security:
         - bearerAuth: []
-        - api_secret: []
     post:
       summary: Enable Audio Playback for Speaker by ID
       operationId: enablePlaybackSpeaker
@@ -799,7 +784,6 @@ paths:
       description: Enable Audioplayback for Speaker by ID
       security:
         - bearerAuth: []
-        - api_secret: []
       requestBody:
         content:
           application/json:
@@ -868,7 +852,6 @@ paths:
       description: Get speaker Group by ID
       security:
         - bearerAuth: []
-        - api_secret: []
     delete:
       summary: Delete Speaker Group by ID
       operationId: deleteSpeakerGroupByID
@@ -905,7 +888,6 @@ paths:
       description: Delete Speaker Group by ID
       security:
         - bearerAuth: []
-        - api_secret: []
     post:
       summary: ''
       operationId: enablePlaybackSpeakerGroup
@@ -958,7 +940,6 @@ paths:
                   $ref: '#/components/schemas/Error'
       security:
         - bearerAuth: []
-        - api_secret: []
       description: Enable Playback for Specific Speaker Group
   /speaker/group:
     get:
@@ -999,7 +980,6 @@ paths:
       operationId: getAllSpeakerGroups
       security:
         - bearerAuth: []
-        - api_secret: []
       description: Get All Speaker Groups
     post:
       summary: Create new Speaker Group
@@ -1043,7 +1023,6 @@ paths:
                     $ref: '#/components/schemas/Error'
       security:
         - bearerAuth: []
-        - api_secret: []
       requestBody:
         content:
           application/json:
@@ -1105,7 +1084,6 @@ paths:
       description: Update Specific Speaker Group
       security:
         - bearerAuth: []
-        - api_secret: []
       requestBody:
         content:
           application/json:
@@ -1162,7 +1140,6 @@ paths:
       operationId: getAllUserGroups
       security:
         - bearerAuth: []
-        - api_secret: []
       description: get all User Permission Groups
     patch:
       summary: Update User Group
@@ -1207,7 +1184,6 @@ paths:
       description: update existing UserGroup
       security:
         - bearerAuth: []
-        - api_secret: []
     post:
       summary: Create new User Group
       operationId: createUserGroup
@@ -1261,7 +1237,6 @@ paths:
       description: create new User Group
       security:
         - bearerAuth: []
-        - api_secret: []
   '/user/group/{id}':
     parameters:
       - schema:
@@ -1313,7 +1288,6 @@ paths:
       description: get specific User Group by ID
       security:
         - bearerAuth: []
-        - api_secret: []
     delete:
       summary: Delete User Group by ID
       operationId: deleteUserGroupByID
@@ -1350,7 +1324,6 @@ paths:
       description: delete specific User Group
       security:
         - bearerAuth: []
-        - api_secret: []
   /refresh:
     get:
       summary: Refresh devices
@@ -1397,7 +1370,6 @@ paths:
       description: Get update from Server with new Devices and updates
       security:
         - bearerAuth: []
-        - api_secret: []
 components:
   schemas:
     Room:
