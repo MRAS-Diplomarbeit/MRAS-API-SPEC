@@ -75,6 +75,7 @@ paths:
                 - username
                 - password
       description: ''
+      security: []
   /user/login:
     post:
       summary: Login User
@@ -121,6 +122,7 @@ paths:
               required:
                 - username
                 - password
+      security: []
     parameters: []
   '/user/{id}/permissions':
     parameters:
@@ -1485,9 +1487,5 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-    api_secret:
-      name: api_secret
-      type: apiKey
-      in: header
 security:
   - api_secret: []
