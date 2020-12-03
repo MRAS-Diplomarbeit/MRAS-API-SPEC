@@ -71,9 +71,12 @@ paths:
                 password:
                   type: string
                   description: sha-256 hashed password
+                device_id:
+                  type: string
               required:
                 - username
                 - password
+                - device_id
       description: ''
       security: []
   /user/login:
@@ -119,9 +122,12 @@ paths:
                 password:
                   type: string
                   description: sha-256 hashed password
+                device_id:
+                  type: string
               required:
                 - username
                 - password
+                - device_id
       security: []
     parameters: []
   '/user/{id}/permissions':
@@ -161,12 +167,12 @@ paths:
             schema:
               type: object
               properties:
-                userid:
+                user_id:
                   type: string
                 privileges:
                   $ref: '#/components/schemas/Permissions'
               required:
-                - userid
+                - user_id
                 - privileges
       description: Updates user permissions
       security:
@@ -651,7 +657,7 @@ paths:
                   $ref: '#/components/schemas/Speaker'
       security:
         - bearerAuth: []
-  /user/logout:
+  '/user/{id}/logout':
     get:
       summary: Logout User
       tags: []
@@ -660,6 +666,15 @@ paths:
           description: OK
         '401':
           description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
           content:
             application/json:
               schema:
@@ -680,7 +695,12 @@ paths:
       description: logs out user an makes Token invalid
       security:
         - bearerAuth: []
-    parameters: []
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
   '/speaker/{id}':
     parameters:
       - schema:
@@ -1324,52 +1344,6 @@ paths:
                   error:
                     $ref: '#/components/schemas/Error'
       description: delete specific User Group
-      security:
-        - bearerAuth: []
-  /refresh:
-    get:
-      summary: Refresh devices
-      tags: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  speakers:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Speaker'
-                  speakergroups:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/SpeakerGroup'
-                  rooms:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Room'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-      operationId: refreshDevices
-      description: Get update from Server with new Devices and updates
       security:
         - bearerAuth: []
 components:
