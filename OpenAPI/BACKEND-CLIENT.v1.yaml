@@ -83,3 +83,11 @@ components:
           type: array
           items:
             type: string
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
