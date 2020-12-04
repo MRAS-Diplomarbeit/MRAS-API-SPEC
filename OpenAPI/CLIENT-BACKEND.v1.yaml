@@ -6,12 +6,12 @@ info:
     name: Lukas König
     email: lukas.koenig02@gmail.com
 servers:
-  - url: 'http://localhost:5000/api/v1'
+  - url: 'http://localhost:3001/api/v1'
 paths:
-  /playback:
-    post:
-      summary: ''
-      operationId: startPlayback
+  /discover:
+    get:
+      summary: Your GET endpoint
+      tags: []
       responses:
         '200':
           description: OK
@@ -21,7 +21,30 @@ paths:
                 type: object
                 properties:
                   error:
-                    $ref: '#/components/schemas/Error'
+                    $ref: ''
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: ''
+      operationId: discoverClient
+  '/discover/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Client Lifesign
+      tags: []
+      responses:
+        '200':
+          description: OK
         '404':
           description: Not Found
           content:
@@ -31,10 +54,6 @@ paths:
                 properties:
                   error:
                     $ref: '#/components/schemas/Error'
-                  dead_ips:
-                    type: array
-                    items:
-                      type: string
         '500':
           description: Internal Server Error
           content:
@@ -44,50 +63,14 @@ paths:
                 properties:
                   error:
                     $ref: '#/components/schemas/Error'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                playback:
-                  $ref: '#/components/schemas/Playback'
-        description: ''
-      description: ''
-    delete:
-      summary: ''
-      operationId: stopPlayback
-      responses:
-        '200':
-          description: OK
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
+      operationId: clientLifesign
 components:
   schemas:
-    Playback:
-      title: Playback
-      type: object
-      properties:
-        method:
-          type: string
-        displayname:
-          type: string
-        device_ips:
-          type: array
-          items:
-            type: string
     Error:
       title: Error
       type: object
       properties:
         code:
           type: string
-        message:
+        message: 
           type: string
