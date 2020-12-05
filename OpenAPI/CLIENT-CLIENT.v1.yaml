@@ -1,0 +1,44 @@
+openapi: 3.0.0
+info:
+  title: CLIENT-CLIENT
+  version: '1.0'
+  contact:
+    name: Nicolas Schüssling
+    email: nicolas.schuessling@gmx.at
+  description: Api between Clients to send Commands for Listening to music
+servers:
+  - url: 'http://localhost:3100/api/v1'
+paths:
+  /listen:
+    get:
+      summary: Start listening and playing music
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+      operationId: get-listen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                multicast_ip:
+                  type: string
+      description: Recives the Command to listen to a given Port
+      parameters: []
+    delete:
+      summary: Stops listening and playing music
+      operationId: delete-listen
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+        '500':
+          description: Internal Server Error
+      description: Recives Stop-Listening Command
+components:
+  schemas: {}
