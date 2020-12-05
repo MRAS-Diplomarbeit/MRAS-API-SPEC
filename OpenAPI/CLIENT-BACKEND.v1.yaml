@@ -6,7 +6,7 @@ info:
     name: Lukas König
     email: lukas.koenig02@gmail.com
 servers:
-  - url: 'http://localhost:3001/api/v1'
+  - url: 'http://localhost:3011/api/v1'
 paths:
   /discover:
     get:
@@ -72,5 +72,5 @@ components:
       properties:
         code:
           type: string
-        message: 
+        message:
           type: string
