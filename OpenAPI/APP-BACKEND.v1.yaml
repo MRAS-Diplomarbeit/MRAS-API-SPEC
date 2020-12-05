@@ -133,7 +133,7 @@ paths:
   '/user/{id}/permissions':
     parameters:
       - schema:
-          type: string
+          type: integer
         name: id
         in: path
         required: true
@@ -415,7 +415,7 @@ paths:
         - bearerAuth: []
     parameters:
       - schema:
-          type: string
+          type: integer
         name: id
         in: path
         required: true
@@ -492,7 +492,7 @@ paths:
         - bearerAuth: []
     parameters:
       - schema:
-          type: string
+          type: integer
         name: id
         in: path
         required: true
@@ -697,14 +697,14 @@ paths:
         - bearerAuth: []
     parameters:
       - schema:
-          type: string
+          type: integer
         name: id
         in: path
         required: true
   '/speaker/{id}':
     parameters:
       - schema:
-          type: string
+          type: integer
         name: id
         in: path
         required: true
@@ -817,7 +817,7 @@ paths:
   '/speaker/group/{id}':
     parameters:
       - schema:
-          type: string
+          type: integer
         name: id
         in: path
         required: true
@@ -1262,7 +1262,7 @@ paths:
   '/user/group/{id}':
     parameters:
       - schema:
-          type: string
+          type: integer
         name: id
         in: path
         required: true
@@ -1353,7 +1353,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         name:
           type: string
         description:
@@ -1371,7 +1371,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         name:
           type: string
         description:
@@ -1385,19 +1385,19 @@ components:
             'y':
               type: number
         room_id:
-          type: string
+          type: integer
     User:
       title: User
       type: object
       properties:
         id:
-          type: string
+          type: integer
         username:
           type: string
         usergroup_ids:
           type: array
           items:
-            type: string
+            type: integer
         avatar_id:
           type: string
     Error:
@@ -1420,33 +1420,35 @@ components:
           type: array
           description: speaker id
           items:
-            type: string
+            type: integer
         room_ids:
           type: array
           description: room id
           items:
-            type: string
+            type: integer
         speakergroup_ids:
           type: array
           items:
-            type: string
+            type: integer
     SpeakerGroup:
       title: SpeakerGroup
       type: object
       description: ''
       properties:
         id:
-          type: string
+          type: integer
         name:
           type: string
         speaker_ids:
-          type: string
+          type: array
+          items:
+            type: integer
     UserGroup:
       title: UserGroup
       type: object
       properties:
         id:
-          type: string
+          type: integer
         name:
           type: string
         perms:
