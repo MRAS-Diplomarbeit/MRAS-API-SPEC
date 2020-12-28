@@ -39,10 +39,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                multicast_ip:
-                  type: string
+              $ref: '#/components/schemas/Listen'
       description: Recives the Command to listen to a given Port
       parameters: []
     delete:
@@ -73,4 +70,12 @@ components:
         code:
           type: string
         message:
+          type: string
+    Listen:
+      title: Listen
+      type: object
+      properties:
+        multicast_ip:
+          type: string
+        methode:
           type: string
