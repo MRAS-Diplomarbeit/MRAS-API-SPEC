@@ -230,6 +230,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Room'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
         '401':
           description: Unauthorized
           content:
@@ -239,15 +248,6 @@ paths:
                 properties:
                   error:
                     $ref: '#/components/schemas/User'
-        '406':
-          description: Not Acceptable
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
         '500':
           description: Internal Server Error
           content:
