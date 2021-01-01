@@ -19,9 +19,6 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
         '400':
           description: Bad Request
           content:
