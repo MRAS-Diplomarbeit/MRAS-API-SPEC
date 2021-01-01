@@ -22,12 +22,19 @@ paths:
               schema:
                 type: object
                 properties:
-                  token:
+                  access_token:
+                    type: string
+                  refresh_token:
                     type: string
                   user:
                     $ref: '#/components/schemas/User'
+                  reset_code:
+                    type: string
                 required:
-                  - token
+                  - access_token
+                  - refresh_token
+                  - user
+                  - reset_code
           headers: {}
         '400':
           description: Bad Request
@@ -91,7 +98,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  token:
+                  access_token:
+                    type: string
+                  refresh_token:
                     type: string
         '401':
           description: Unauthorized
@@ -1346,6 +1355,172 @@ paths:
       description: delete specific User Group
       security:
         - bearerAuth: []
+  /user/refresh:
+    parameters: []
+    post:
+      summary: Generate Access Token
+      operationId: generateAccessToken
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                required:
+                  - access_token
+        '400':
+          description: Bad Request
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      description: Accepts RefreshToken and genereates AccessToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refresh_token:
+                  type: string
+              required:
+                - refresh_token
+  '/user/{username}/password/reset':
+    parameters:
+      - schema:
+          type: string
+        name: username
+        in: path
+        required: true
+    post:
+      summary: Reset User Password
+      operationId: resetUserPassword
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      description: Resets User Password when provided the correct Reset Code
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reset_code:
+                  type: string
+  '/user/{username}/password/new':
+    parameters:
+      - schema:
+          type: string
+        name: username
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-user-username-password-new
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
 components:
   schemas:
     Room:
