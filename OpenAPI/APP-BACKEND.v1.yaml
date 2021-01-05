@@ -1477,8 +1477,8 @@ paths:
         in: path
         required: true
     post:
-      summary: ''
-      operationId: post-user-username-password-new
+      summary: New User Password
+      operationId: newUserPassword
       responses:
         '200':
           description: OK
