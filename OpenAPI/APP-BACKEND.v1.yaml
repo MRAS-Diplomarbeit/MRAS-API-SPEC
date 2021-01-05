@@ -139,7 +139,7 @@ paths:
                 - device_id
       security: []
     parameters: []
-  '/user/{id}/permissions':
+  '/user/permissions/{id}':
     parameters:
       - schema:
           type: integer
@@ -666,7 +666,7 @@ paths:
                   $ref: '#/components/schemas/Speaker'
       security:
         - bearerAuth: []
-  '/user/{id}/logout':
+  '/user/logout/{id}':
     get:
       summary: Logout User
       tags: []
@@ -1411,7 +1411,7 @@ paths:
                   type: string
               required:
                 - refresh_token
-  '/user/{username}/password/reset':
+  '/user/password/reset/{username}':
     parameters:
       - schema:
           type: string
@@ -1469,7 +1469,7 @@ paths:
               properties:
                 reset_code:
                   type: string
-  '/user/{username}/password/new':
+  '/user/password/new/{username}':
     parameters:
       - schema:
           type: string
