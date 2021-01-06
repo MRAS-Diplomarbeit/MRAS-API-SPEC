@@ -139,11 +139,11 @@ paths:
                 - device_id
       security: []
     parameters: []
-  '/user/permissions/{id}':
+  '/user/permissions/{userid}':
     parameters:
       - schema:
-          type: integer
-        name: id
+          type: string
+        name: userid
         in: path
         required: true
     patch:
@@ -186,6 +186,46 @@ paths:
       description: Updates user permissions
       security:
         - bearerAuth: []
+    get:
+      summary: ''
+      operationId: getUserPermissions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  perms:
+                    $ref: '#/components/schemas/Permissions'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
   /user:
     get:
       summary: Get All Users
