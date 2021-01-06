@@ -187,7 +187,7 @@ paths:
       security:
         - bearerAuth: []
     get:
-      summary: ''
+      summary: Get User Permissions
       operationId: getUserPermissions
       responses:
         '200':
@@ -960,8 +960,8 @@ paths:
       security:
         - bearerAuth: []
     post:
-      summary: ''
-      operationId: enablePlaybackSpeakerGroup
+      summary: Play audio on Speaker Group
+      operationId: enablePlaybackSpeakerGroupp
       responses:
         '200':
           description: OK
@@ -1008,7 +1008,7 @@ paths:
               type: object
               properties:
                 playback:
-                  $ref: '#/components/schemas/Error'
+                  $ref: '#/components/schemas/Playback'
       security:
         - bearerAuth: []
       description: Enable Playback for Specific Speaker Group
