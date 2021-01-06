@@ -139,11 +139,11 @@ paths:
                 - device_id
       security: []
     parameters: []
-  '/user/permissions/{userid}':
+  '/user/{id}/permissions':
     parameters:
       - schema:
           type: string
-        name: userid
+        name: id
         in: path
         required: true
     patch:
@@ -368,56 +368,6 @@ paths:
       operationId: getAllRooms
       security:
         - bearerAuth: []
-    patch:
-      summary: Update Room
-      operationId: patchRoom
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  room:
-                    $ref: '#/components/schemas/Room'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                room:
-                  $ref: '#/components/schemas/Room'
-      security:
-        - bearerAuth: []
   '/room/{id}':
     get:
       summary: Get Specific Room by ID
@@ -521,6 +471,89 @@ paths:
               properties:
                 playback:
                   $ref: '#/components/schemas/Playback'
+    patch:
+      summary: Update Room
+      operationId: patchRoom
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  room:
+                    $ref: '#/components/schemas/Room'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                room:
+                  $ref: '#/components/schemas/Room'
+      security:
+        - bearerAuth: []
+    delete:
+      summary: Delete Room
+      operationId: deleteRoom
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
   '/user/{id}':
     get:
       summary: Get specific User by ID
@@ -706,7 +739,7 @@ paths:
                   $ref: '#/components/schemas/Speaker'
       security:
         - bearerAuth: []
-  '/user/logout/{id}':
+  '/user/{id}/logout':
     get:
       summary: Logout User
       tags: []
@@ -863,7 +896,7 @@ paths:
               properties:
                 playback:
                   $ref: '#/components/schemas/Playback'
-  '/speaker/group/{id}':
+  '/group/speaker/{id}':
     parameters:
       - schema:
           type: integer
@@ -923,6 +956,66 @@ paths:
       description: Get speaker Group by ID
       security:
         - bearerAuth: []
+    patch:
+      summary: Update Speaker Group
+      operationId: updateSpeakerGroup
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  group:
+                    $ref: '#/components/schemas/SpeakerGroup'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      description: Update Specific Speaker Group
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                group:
+                  $ref: '#/components/schemas/SpeakerGroup'
     delete:
       summary: Delete Speaker Group by ID
       operationId: deleteSpeakerGroupByID
@@ -961,7 +1054,7 @@ paths:
         - bearerAuth: []
     post:
       summary: Play audio on Speaker Group
-      operationId: enablePlaybackSpeakerGroupp
+      operationId: enablePlaybackSpeakerGrouppp
       responses:
         '200':
           description: OK
@@ -1103,67 +1196,7 @@ paths:
                 group:
                   $ref: '#/components/schemas/SpeakerGroup'
       description: Create new Speakergroup
-    patch:
-      summary: Update Speaker Group
-      operationId: updateSpeakerGroup
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  group:
-                    $ref: '#/components/schemas/SpeakerGroup'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-      description: Update Specific Speaker Group
-      security:
-        - bearerAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                group:
-                  $ref: '#/components/schemas/SpeakerGroup'
-  /user/group:
+  /group/user:
     get:
       summary: Get all User Groups
       tags: []
@@ -1212,49 +1245,6 @@ paths:
       security:
         - bearerAuth: []
       description: get all User Permission Groups
-    patch:
-      summary: Update User Group
-      operationId: updateUserGroup
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  group:
-                    $ref: '#/components/schemas/UserGroup'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-      description: update existing UserGroup
-      security:
-        - bearerAuth: []
     post:
       summary: Create new User Group
       operationId: createUserGroup
@@ -1308,7 +1298,8 @@ paths:
       description: create new User Group
       security:
         - bearerAuth: []
-  '/user/group/{id}':
+    parameters: []
+  '/group/user/{id}':
     parameters:
       - schema:
           type: integer
@@ -1359,6 +1350,57 @@ paths:
       description: get specific User Group by ID
       security:
         - bearerAuth: []
+    patch:
+      summary: Update User Group
+      operationId: updateUserGroup
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  group:
+                    $ref: '#/components/schemas/UserGroup'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      description: update existing UserGroup
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                group:
+                  $ref: '#/components/schemas/UserGroup'
     delete:
       summary: Delete User Group by ID
       operationId: deleteUserGroupByID
