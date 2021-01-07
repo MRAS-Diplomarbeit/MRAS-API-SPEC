@@ -14,3 +14,4 @@
 |DBSQ004 |Error Reseting User Password|
 |DBSQ005 |Error Saving new Password|
 |RQST001 |Error decoding RequestBody|
+|RQST002 |Request Mody missing fields|
