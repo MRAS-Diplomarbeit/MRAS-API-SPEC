@@ -1,3 +1,5 @@
+## Server - App API Errocodes
+
 |Code  | Meaning|
 |------|---------------------------------------------------------|
 |AUTH001 |Missing or Invalid Authorization Header|
