@@ -226,6 +226,9 @@ paths:
                 properties:
                   error:
                     $ref: '#/components/schemas/Error'
+      description: ''
+      security:
+        - bearerAuth: []
   /user:
     get:
       summary: Get All Users
