@@ -102,6 +102,8 @@ paths:
                     type: string
                   refresh_token:
                     type: string
+                  user:
+                    $ref: '#/components/schemas/User'
         '401':
           description: Unauthorized
           content:
