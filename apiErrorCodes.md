@@ -19,3 +19,4 @@
 |DBSQ006 |User ID not Found|
 |RQST001 |Error decoding Request|
 |RQST002 |Request Body missing fields|
+|CLIE001 |Error sending Request to client|
