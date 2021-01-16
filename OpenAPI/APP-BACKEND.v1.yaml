@@ -102,6 +102,8 @@ paths:
                     type: string
                   refresh_token:
                     type: string
+                  user:
+                    $ref: '#/components/schemas/User'
         '401':
           description: Unauthorized
           content:
@@ -786,7 +788,7 @@ paths:
         name: id
         in: path
         required: true
-  '/speaker/{id}':
+  '/speaker/{id}/':
     parameters:
       - schema:
           type: integer
@@ -846,59 +848,6 @@ paths:
       description: ''
       security:
         - bearerAuth: []
-    post:
-      summary: Enable Audio Playback for Speaker by ID
-      operationId: enablePlaybackSpeaker
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-      description: Enable Audioplayback for Speaker by ID
-      security:
-        - bearerAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                playback:
-                  $ref: '#/components/schemas/Playback'
   '/group/speaker/{id}':
     parameters:
       - schema:
@@ -1606,6 +1555,74 @@ paths:
               properties:
                 password:
                   type: string
+  '/speaker/{id}/playback':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: Enable Audio Playback for Speaker by ID
+      operationId: enablePlaybackSpeaker
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      description: Enable Audioplayback for Speaker by ID
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                playback:
+                  $ref: '#/components/schemas/Playback'
+    delete:
+      summary: ''
+      operationId: stopPlaybackSpeaker
+      responses:
+        '200':
+          description: OK
+      security:
+        - bearerAuth: []
 components:
   schemas:
     Room:
