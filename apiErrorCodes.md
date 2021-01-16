@@ -19,4 +19,5 @@
 |DBSQ006 |User ID not Found|
 |RQST001 |Error decoding Request|
 |RQST002 |Request Body missing fields|
-|CLIE001 |Error sending Request to client|
+|CLIE001 |Speaker/s not active|
+|CLIE002 |Error sending Request to client|
