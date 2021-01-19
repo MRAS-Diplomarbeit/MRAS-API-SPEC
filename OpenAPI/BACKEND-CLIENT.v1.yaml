@@ -56,8 +56,14 @@ paths:
             schema:
               type: object
               properties:
-                playback:
-                  $ref: '#/components/schemas/Playback'
+                method:
+                  type: string
+                displayname:
+                  type: string
+                device_ips:
+                  type: array
+                  items:
+                    type: string
         description: ''
       description: ''
     delete:
