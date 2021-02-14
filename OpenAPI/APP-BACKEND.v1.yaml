@@ -738,10 +738,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                speaker:
-                  $ref: '#/components/schemas/Speaker'
+              $ref: '#/components/schemas/Speaker'
       security:
         - bearerAuth: []
   '/user/{id}/logout':
@@ -1057,7 +1054,7 @@ paths:
       security:
         - bearerAuth: []
       description: Enable Playback for Specific Speaker Group
-  /speaker/group:
+  /group/speaker:
     get:
       summary: Get all Speaker Groups
       tags: []
@@ -1148,6 +1145,7 @@ paths:
                 group:
                   $ref: '#/components/schemas/SpeakerGroup'
       description: Create new Speakergroup
+    parameters: []
   /group/user:
     get:
       summary: Get all User Groups
