@@ -1142,8 +1142,12 @@ paths:
             schema:
               type: object
               properties:
-                group:
-                  $ref: '#/components/schemas/SpeakerGroup'
+                name:
+                  type: string
+                speaker_ids:
+                  type: array
+                  items:
+                    type: integer
       description: Create new Speakergroup
     parameters: []
   /group/user:
