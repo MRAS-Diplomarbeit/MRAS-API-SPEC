@@ -1247,61 +1247,15 @@ paths:
             schema:
               type: object
               properties:
-                group:
-                  $ref: '#/components/schemas/UserGroup'
+                name:
+                  type: string
+                perms:
+                  $ref: '#/components/schemas/Permissions'
+                user_ids:
+                  type: array
+                  items:
+                    type: integer
       description: create new User Group
-      security:
-        - bearerAuth: []
-    parameters: []
-  '/group/user/{id}':
-    parameters:
-      - schema:
-          type: integer
-        name: id
-        in: path
-        required: true
-    get:
-      summary: Get User Group by ID
-      tags: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  group:
-                    $ref: '#/components/schemas/Error'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-      operationId: getUserGroupByID
-      description: get specific User Group by ID
       security:
         - bearerAuth: []
     patch:
@@ -1355,6 +1309,59 @@ paths:
               properties:
                 group:
                   $ref: '#/components/schemas/UserGroup'
+    parameters: []  
+  '/group/user/{id}':
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get User Group by ID
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  group:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      operationId: getUserGroupByID
+      description: get specific User Group by ID
+      security:
+        - bearerAuth: []
+    
     delete:
       summary: Delete User Group by ID
       operationId: deleteUserGroupByID
