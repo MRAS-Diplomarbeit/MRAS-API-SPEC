@@ -179,12 +179,12 @@ paths:
               type: object
               properties:
                 user_id:
-                  type: string
-                privileges:
+                  type: integer
+                perms:
                   $ref: '#/components/schemas/Permissions'
               required:
                 - user_id
-                - privileges
+                - perms
       description: Updates user permissions
       security:
         - bearerAuth: []
@@ -1309,7 +1309,7 @@ paths:
               properties:
                 group:
                   $ref: '#/components/schemas/UserGroup'
-    parameters: []  
+    parameters: []
   '/group/user/{id}':
     parameters:
       - schema:
@@ -1361,7 +1361,6 @@ paths:
       description: get specific User Group by ID
       security:
         - bearerAuth: []
-    
     delete:
       summary: Delete User Group by ID
       operationId: deleteUserGroupByID
