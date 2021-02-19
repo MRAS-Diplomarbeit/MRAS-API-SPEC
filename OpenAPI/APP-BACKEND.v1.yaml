@@ -1676,6 +1676,56 @@ paths:
           description: OK
       security:
         - bearerAuth: []
+  /session/group:
+    get:
+      summary: Get Group Sessions
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  sessions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        displayname:
+                          type: string
+                        speakergroup_id:
+                          type: integer
+      operationId: get-session-group
+  /session/speaker:
+    get:
+      summary: Get Speaker Sessions
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  sessions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        displayname:
+                          type: string
+                        speaker_ids:
+                          type: array
+                          items:
+                            type: integer
+      operationId: get-session-speaker
 components:
   schemas:
     Room:
