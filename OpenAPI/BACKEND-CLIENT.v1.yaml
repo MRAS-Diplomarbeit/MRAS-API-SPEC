@@ -104,6 +104,65 @@ paths:
                   type: array
                   items:
                     type: string
+  /log:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lines:
+                    type: array
+                    items:
+                      type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-log
+  '/log/{lines}':
+    parameters:
+      - schema:
+          type: string
+        name: lines
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lines:
+                    type: array
+                    items:
+                      type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-log-lines
+      description: Get an amount of the last log lines
 components:
   schemas:
     Playback:
