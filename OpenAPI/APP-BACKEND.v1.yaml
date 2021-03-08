@@ -324,7 +324,7 @@ paths:
                 dimensions:
                   type: object
                   properties:
-                    hieght:
+                    height:
                       type: number
                     width:
                       type: number
@@ -559,6 +559,8 @@ paths:
                 properties:
                   error:
                     $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
   '/user/{id}':
     get:
       summary: Get specific User by ID
@@ -1700,6 +1702,8 @@ paths:
                         speakergroup_id:
                           type: integer
       operationId: get-session-group
+      security:
+        - bearerAuth: []
   /session/speaker:
     get:
       summary: Get Speaker Sessions
@@ -1726,6 +1730,8 @@ paths:
                           items:
                             type: integer
       operationId: get-session-speaker
+      security:
+        - bearerAuth: []
 components:
   schemas:
     Room:
