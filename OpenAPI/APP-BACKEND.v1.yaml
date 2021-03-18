@@ -1732,6 +1732,34 @@ paths:
       operationId: get-session-speaker
       security:
         - bearerAuth: []
+  '/user/{id}/password':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-user-id-password
+    patch:
+      summary: Update Password
+      operationId: patch-user-id-password
+      responses:
+        '200':
+          description: OK
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
 components:
   schemas:
     Room:
