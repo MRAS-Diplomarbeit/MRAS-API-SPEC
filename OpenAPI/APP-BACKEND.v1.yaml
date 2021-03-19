@@ -1003,59 +1003,6 @@ paths:
       description: Delete Speaker Group by ID
       security:
         - bearerAuth: []
-    post:
-      summary: Play audio on Speaker Group
-      operationId: enablePlaybackSpeakerGrouppp
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                playback:
-                  $ref: '#/components/schemas/Playback'
-      security:
-        - bearerAuth: []
-      description: Enable Playback for Specific Speaker Group
   /group/speaker:
     get:
       summary: Get all Speaker Groups
@@ -1760,6 +1707,71 @@ paths:
               properties:
                 password:
                   type: string
+  '/group/speaker/{id}/playback':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: Play audio on Speaker Group
+      operationId: enablePlaybackSpeakerGroup
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Playback'
+      security:
+        - bearerAuth: []
+      description: Enable Playback for Specific Speaker Group
+    delete:
+      summary: Stop Playback Speakergroup
+      operationId: stopPlaybackSpeakerGroup
+      responses:
+        '200':
+          description: OK
+      security:
+        - bearerAuth: []
 components:
   schemas:
     Room:
@@ -1874,6 +1886,8 @@ components:
         displayname:
           type: string
         method:
+          type: string
+        multicast_ip:
           type: string
   securitySchemes:
     bearerAuth:
