@@ -64,6 +64,8 @@ paths:
                   type: array
                   items:
                     type: string
+                multicast_ip:
+                  type: string
         description: ''
       description: ''
     delete:
