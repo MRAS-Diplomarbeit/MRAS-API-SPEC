@@ -1782,8 +1782,6 @@ paths:
             schema:
               type: object
               properties:
-                displayname:
-                  type: string
                 method:
                   type: string
     delete:
