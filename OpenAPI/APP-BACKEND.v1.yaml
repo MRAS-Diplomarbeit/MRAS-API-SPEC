@@ -910,10 +910,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                group:
-                  $ref: '#/components/schemas/SpeakerGroup'
+              $ref: '#/components/schemas/SpeakerGroup'
     delete:
       summary: Delete Speaker Group by ID
       operationId: deleteSpeakerGroupByID
