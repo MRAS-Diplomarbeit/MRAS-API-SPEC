@@ -423,59 +423,6 @@ paths:
         name: id
         in: path
         required: true
-    post:
-      summary: Enable Audio Playback for Room by ID
-      operationId: enablePlaybackRoom
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-      description: Enable Audioplayback for a Room by ID
-      security:
-        - bearerAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                playback:
-                  $ref: '#/components/schemas/Playback'
     patch:
       summary: Update Room
       operationId: patchRoom
@@ -1760,7 +1707,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Playback'
+              type: object
+              properties:
+                displayname:
+                  type: string
+                method:
+                  type: string
       security:
         - bearerAuth: []
       description: Enable Playback for Specific Speaker Group
@@ -1772,6 +1724,93 @@ paths:
           description: OK
       security:
         - bearerAuth: []
+  '/room/{id}/playback':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: Enable Playback for Room by ID
+      operationId: enablePlaybackRoom
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+      description: Enable Audioplayback for a Room by ID
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                displayname:
+                  type: string
+                method:
+                  type: string
+    delete:
+      summary: Stop Playback Room
+      operationId: stopPlaybackRoom
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: stop Playback for Room by ID
 components:
   schemas:
     Room:
