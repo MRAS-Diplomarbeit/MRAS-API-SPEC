@@ -1569,60 +1569,6 @@ paths:
           description: OK
       security:
         - bearerAuth: []
-  /session/group:
-    get:
-      summary: Get Group Sessions
-      tags: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                  sessions:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        displayname:
-                          type: string
-                        speakergroup_id:
-                          type: integer
-      operationId: get-session-group
-      security:
-        - bearerAuth: []
-  /session/speaker:
-    get:
-      summary: Get Speaker Sessions
-      tags: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                  sessions:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        displayname:
-                          type: string
-                        speaker_ids:
-                          type: array
-                          items:
-                            type: integer
-      operationId: get-session-speaker
-      security:
-        - bearerAuth: []
   '/user/{id}/password':
     parameters:
       - schema:
@@ -1923,6 +1869,84 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       operationId: get-group-speaker-id-active
+  '/speaker/{id}/playback/method':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get available Playback Methods of Speaker
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  methods:
+                    type: array
+                    items:
+                      type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-speaker-id-playback-method
+      security:
+        - bearerAuth: []
+    post:
+      summary: Set Playback Method for Speaker
+      operationId: post-speaker-id-playback-method
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                method:
+                  type: string
 components:
   schemas:
     Room:
