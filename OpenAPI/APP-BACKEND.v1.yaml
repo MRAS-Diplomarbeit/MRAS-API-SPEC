@@ -1595,7 +1595,7 @@ paths:
   '/group/speaker/{id}/playback':
     parameters:
       - schema:
-          type: string
+          type: integer
         name: id
         in: path
         required: true
@@ -1750,7 +1750,7 @@ paths:
   '/speaker/{id}/active':
     parameters:
       - schema:
-          type: string
+          type: integer
         name: id
         in: path
         required: true
@@ -1791,7 +1791,7 @@ paths:
   '/room/{id}/active':
     parameters:
       - schema:
-          type: string
+          type: integer
         name: id
         in: path
         required: true
@@ -1832,7 +1832,7 @@ paths:
   '/group/speaker/{id}/active':
     parameters:
       - schema:
-          type: string
+          type: integer
         name: id
         in: path
         required: true
@@ -1873,7 +1873,7 @@ paths:
   '/speaker/{id}/playback/method':
     parameters:
       - schema:
-          type: string
+          type: integer
         name: id
         in: path
         required: true
