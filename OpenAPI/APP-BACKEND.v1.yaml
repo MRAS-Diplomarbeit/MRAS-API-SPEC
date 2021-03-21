@@ -1814,7 +1814,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Check if Speaker Active
       tags: []
       responses:
         '200':
@@ -1853,7 +1853,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Check if Room active
       tags: []
       responses:
         '200':
@@ -1892,7 +1892,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Check if SpeakerGroup active
       tags: []
       responses:
         '200':
