@@ -1576,11 +1576,6 @@ paths:
         name: id
         in: path
         required: true
-    get:
-      summary: Your GET endpoint
-      tags: []
-      responses: {}
-      operationId: get-user-id-password
     patch:
       summary: Update Password
       operationId: patch-user-id-password
@@ -1791,6 +1786,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       operationId: get-speaker-id-active
+      security:
+        - bearerAuth: []
   '/room/{id}/active':
     parameters:
       - schema:
@@ -1830,6 +1827,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       operationId: get-room-id-active
+      security:
+        - bearerAuth: []
   '/group/speaker/{id}/active':
     parameters:
       - schema:
@@ -1869,6 +1868,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       operationId: get-group-speaker-id-active
+      security:
+        - bearerAuth: []
   '/speaker/{id}/playback/method':
     parameters:
       - schema:
@@ -1906,6 +1907,7 @@ paths:
         '403':
           description: Forbidden
         '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
