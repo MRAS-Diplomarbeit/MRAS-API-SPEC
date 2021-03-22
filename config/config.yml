@@ -1,8 +1,6 @@
 server:
-  jwtAccessSecret: "ABCDEF"
-  jwtRefreshSecret: "ABCDEF"
-  logfile: "log.txt"
-  logLevel: "INFO"
+  jwtAccessSecret: "[[ACCESSTOKEN]]"
+  jwtRefreshSecret: "[[REFRESHTOKEN]]"
   app:
     port: 3000
   client:
@@ -10,8 +8,8 @@ server:
   mysql:
     host: "localhost"
     port: 3306
-    user: "root"
-    password: "Passwort123!"
+    user: "[[DBUSER]]"
+    password: "[[DBPASSWORD]]"
     dbname: "mras"
   redis:
     host: "localhost"
@@ -19,7 +17,6 @@ server:
     password: ""
     db: 0
 client:
-  logfile: "../log.txt"
   client-backend:
     port: 3010
     protocol: "http"
@@ -30,5 +27,6 @@ client:
     path: "/api/v1/listen"
 logs:
   path: "/home/pi/logs/"
-  maxSize: 10
-  oldLogs: 10
+  level: "INFO"
+  maxSize: 15
+  maxAge: 30
