@@ -563,48 +563,6 @@ paths:
         - bearerAuth: []
   /speaker:
     parameters: []
-    post:
-      summary: Add new Speaker
-      operationId: addSpeaker
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  speaker:
-                    $ref: '#/components/schemas/Speaker'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    $ref: '#/components/schemas/Error'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                speaker:
-                  $ref: '#/components/schemas/Speaker'
-      description: 'Add a new Speaker '
-      security:
-        - bearerAuth: []
     get:
       summary: Get All Speaker
       operationId: getAllSpeaker
