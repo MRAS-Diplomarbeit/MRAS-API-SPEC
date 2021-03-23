@@ -467,10 +467,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                room:
-                  $ref: '#/components/schemas/Room'
+              $ref: '#/components/schemas/Room'
       security:
         - bearerAuth: []
     delete:
