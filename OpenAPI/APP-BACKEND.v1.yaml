@@ -144,7 +144,7 @@ paths:
   '/user/{id}/permissions':
     parameters:
       - schema:
-          type: string
+          type: integer
         name: id
         in: path
         required: true
@@ -1907,7 +1907,7 @@ paths:
   '/room/{id}/speakers':
     parameters:
       - schema:
-          type: string
+          type: integer
         name: id
         in: path
         required: true
