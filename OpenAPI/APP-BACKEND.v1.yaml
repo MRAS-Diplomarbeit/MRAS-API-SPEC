@@ -1904,6 +1904,51 @@ paths:
               properties:
                 method:
                   type: string
+  '/room/{id}/speakers':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get all Speakers in Room
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  speakers:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Speaker'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-room-id-speakers
+      security:
+        - bearerAuth: []
 components:
   schemas:
     Room:
