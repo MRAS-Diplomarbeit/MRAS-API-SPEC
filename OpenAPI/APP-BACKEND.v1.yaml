@@ -1702,6 +1702,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       description: stop Playback for Room by ID
+      security:
+        - bearerAuth: []
   '/speaker/{id}/active':
     parameters:
       - schema:
