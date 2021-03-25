@@ -27,7 +27,7 @@ client:
     protocol: "http"
     path: "/api/v1/listen"
 logs:
-  path: "/var/log/mras/"
+  path: "/tmp/mras/"
   level: "INFO"
   maxSize: 15
   maxAge: 30
