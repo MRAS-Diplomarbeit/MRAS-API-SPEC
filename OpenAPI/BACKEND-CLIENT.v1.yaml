@@ -228,6 +228,86 @@ paths:
               properties:
                 method:
                   type: string
+  /volume:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  percent:
+                    type: integer
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+      operationId: get-setvolume
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                interface:
+                  type: string
+    parameters: []
+    post:
+      summary: ''
+      operationId: post-volume
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                percent:
+                  type: integer
+                interface:
+                  type: string
+  /delay:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+      operationId: get-delay
 components:
   schemas:
     Playback:
